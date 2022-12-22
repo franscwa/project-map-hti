@@ -35,15 +35,19 @@ def handle_form():
           
          
             cursor.execute(sql, (location, title, description))
-            cursor.execute(output)
-            print("HEY!!! " + output)
+            res = cursor.execute(output)
+            print("HEY!!" + res)
         connection.commit()
+
+    if request.method == 'GET':
+        return render_template('index.html')
+
 
 
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 
