@@ -17,8 +17,6 @@ def handle_form():
         # Get the form data
         location = request.form['location']
 
-
-
         #add an image variable
         title = request.form['title']
         description = request.form['description']
@@ -26,22 +24,24 @@ def handle_form():
         # Insert the data into the database
         with connection.cursor() as cursor:
             sql = "INSERT INTO landmarks (location, title, description) VALUES (%s, %s, %s)"
+           
             #also insert the data into the folium map
             
           
+         
+            cursor.execute(sql, (location, title, description))
 
 
             output = "SELECT * from landmarks"
-          
-         
-            cursor.execute(sql, (location, title, description))
-            res = cursor.execute(output)
-            print("HEY!!" + res)
+            cursor.execute(output)
+
+            rows = cursor.fetchall()
+
+            for row in rows:
+                print(row)
         connection.commit()
 
-    if request.method == 'GET':
-        return render_template('index.html')
-
+  
 
 
 
