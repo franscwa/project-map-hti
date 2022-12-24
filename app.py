@@ -10,8 +10,13 @@ connection = pymysql.connect(host='localhost',
                              user='root',
                              password='Indiana2022!',
                              db='geoproject')
+@app.route('/')
+def index():
+    # Render the home.html template
+    return render_template('index.html')
 
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/new', methods=['GET', 'POST'])
 def handle_form():
     if request.method == 'POST':
         # Get the form data
