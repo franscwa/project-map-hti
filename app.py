@@ -1,21 +1,23 @@
 import os
 from flask import Flask, request, redirect, url_for, render_template
 import pymysql
-import maps 
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    return app
 
+app = create_app()
 # Connect to the database
-connection = pymysql.connect(host='localhost',
-                             user='root',
-                             password='Indiana2022!',
-                             db='geoproject')
+#connection = pymysql.connect(host='localhost',
+#                             user='root',
+ #                            password='Indiana2022!',
+            #               db='geoproject')
 @app.route('/')
 def index():
     # Render the home.html template
     return render_template('index.html')
 
-
+"""
 @app.route('/new', methods=['GET', 'POST'])
 def handle_form():
     if request.method == 'POST':
@@ -45,6 +47,7 @@ def handle_form():
             for row in rows:
                 print(row)
         connection.commit()
+        """
 
   
 
