@@ -7,19 +7,17 @@ def create_app():
     return app
 
 app = create_app()
-# Connect to the database
-#connection = pymysql.connect(host='localhost',
-#                             user='root',
- #                            password='Indiana2022!',
-            #               db='geoproject')
-@app.route('/')
-def index():
-    # Render the home.html template
-    return render_template('index.html')
+ #Connect to the database
+connection = pymysql.connect(host='localhost',
+                             user='root',
+                             password='Indiana2022!',
+                          db='geoproject')
 
-"""
-@app.route('/new', methods=['GET', 'POST'])
-def handle_form():
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+
     if request.method == 'POST':
         # Get the form data
         location = request.form['location']
@@ -45,9 +43,11 @@ def handle_form():
             rows = cursor.fetchall()
 
             for row in rows:
-                print(row)
+               print(row)
+    else: 
+        return render_template('index.html') 
         connection.commit()
-        """
+        
 
   
 
@@ -56,6 +56,6 @@ def handle_form():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run('0.0.0.0', port=5003)
 
 
