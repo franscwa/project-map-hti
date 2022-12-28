@@ -10,7 +10,7 @@ with open('haitigeo2.geojson') as f:
     geojson_data = f.read()
 
 # Create a Map instance
-m = folium.Map()
+m = folium.Map(zoom_start=10)
 
 # Add the GeoJSON data to the map
 folium.GeoJson(geojson_data).add_to(m)
