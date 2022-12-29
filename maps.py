@@ -6,8 +6,8 @@ import geojson
 import folium
 
 # Load the GeoJSON file
-with open('haitigeo2.geojson') as f:
-    geojson_data = f.read()
+with open('haiti.geojson') as mapData:
+     geojson_data = mapData.read()
 
 # Create a Map instance
 m = folium.Map(location=[18.9712, 72.2852], zoom_start=10)
