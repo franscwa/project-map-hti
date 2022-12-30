@@ -15,10 +15,14 @@ def create_app():
 app = create_app()
  #Connect to the database
 
+api_key = 'YOUR_API_KEY'
+
+
 dbHost = os.getenv("DATABASE_HOST")
 dbName = os.getenv("DATABASE_NAME")
 dbUser = os.getenv("DATABASE_USERNAME")
 dbPass = os.getenv("DATABASE_PASSWORD")
+mapsAPI = os.getenv
 
 
 
@@ -34,8 +38,31 @@ def index():
 
     if request.method == 'POST':
         # Get the form data
-        location = request.form['location']
+        city = request.form['location']
 
+       
+
+        response = requests.get(f'https://maps.googleapis.com/maps/api/geocode/json?address={city}&key={api_key}')
+
+        if response.status_code == 200:
+    # Load the response data into a dictionary
+            data = response.json()
+
+    # Extract the latitude and longitude from the response data
+            latitude = data['results'][0]['geometry']['location']['lat']
+            longitude = data['results'][0]['geometry']['location']['lng']
+
+    # Print the latitude and longitude
+            print(f'Latitude: {latitude}')
+            print(f'Longitude: {longitude}')
+        else:
+            print('Request failed')
+    
+
+        location = []
+
+        location.append(latitude)
+        location.append(longitude)
         #put code to translate city name to lat long
 
         #add an image variable
@@ -52,6 +79,7 @@ def index():
 
             updatedMap = Maps('haiti.geojson')
             
+
             updatedMap.add_markers_from_database()
 
             updatedMap.save_map('./templates/index.html')
