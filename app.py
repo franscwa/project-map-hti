@@ -7,14 +7,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def create_app():
-    app = Flask(__name__)
-    return app
+app = Flask(__name__)
 
-app = create_app()
+
  #Connect to the database
-
-api_key = 'YOUR_API_KEY'
 
   
 dbHost = os.getenv("DATABASE_HOST")
