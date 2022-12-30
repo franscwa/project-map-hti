@@ -2,7 +2,6 @@ import os
 from flask import Flask, request, redirect, url_for, render_template
 import pymysql
 from MapOOP import Maps
-from geopy.geocoders import Nomatim
 from dotenv import load_dotenv
 
 
@@ -17,12 +16,12 @@ app = create_app()
 
 api_key = 'YOUR_API_KEY'
 
-
+  
 dbHost = os.getenv("DATABASE_HOST")
 dbName = os.getenv("DATABASE_NAME")
 dbUser = os.getenv("DATABASE_USERNAME")
 dbPass = os.getenv("DATABASE_PASSWORD")
-mapsAPI = os.getenv
+mapsAPI = os.getenv("MAP_API_KEY")
 
 
 
@@ -42,7 +41,7 @@ def index():
 
        
 
-        response = requests.get(f'https://maps.googleapis.com/maps/api/geocode/json?address={city}&key={api_key}')
+        response = requests.get(f'https://maps.googleapis.com/maps/api/geocode/json?address={city}&key={mapsAPI}')
 
         if response.status_code == 200:
     # Load the response data into a dictionary
@@ -63,6 +62,8 @@ def index():
 
         location.append(latitude)
         location.append(longitude)
+
+        location = repr(location)
         #put code to translate city name to lat long
 
         #add an image variable
@@ -80,7 +81,21 @@ def index():
             updatedMap = Maps('haiti.geojson')
             
 
-            updatedMap.add_markers_from_database()
+                # Retrieve the data from the table
+            sql = "SELECT * FROM landmarks"
+            cursor.execute(sql)
+            rows = cursor.fetchall()
+
+        # Add a marker for each row of data
+            for row in rows:
+
+                location = row['location']
+                title = row['title']
+                description = row['description']
+
+                location = eval(location)
+                updatedMap.add_marker(location, title, description)
+
 
             updatedMap.save_map('./templates/index.html')
 
