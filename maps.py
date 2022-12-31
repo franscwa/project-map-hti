@@ -5,7 +5,6 @@ import geojson
 
 import folium
 
-print(type([34.343,35.3535]))
 
 # Load the GeoJSON file
 with open('haiti.geojson') as mapData:
@@ -45,3 +44,4 @@ folium.Html(html, script=True).add_to(m)
 
 
 # Display the map
+map.save('./templates/index.html')
