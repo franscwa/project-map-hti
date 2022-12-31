@@ -44,4 +44,4 @@ folium.Html(html, script=True).add_to(m)
 
 
 # Display the map
-map.save('./templates/index.html')
+m.save('./templates/index.html')
