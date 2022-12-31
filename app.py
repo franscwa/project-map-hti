@@ -5,10 +5,10 @@ from MapOOP import Maps
 from dotenv import load_dotenv
 
 
-load_dotenv()
+
 
 app = Flask(__name__)
-
+load_dotenv()
 
  #Connect to the database
 
@@ -101,11 +101,5 @@ def index():
         connection.commit()
         
 
-  
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    app.run()
