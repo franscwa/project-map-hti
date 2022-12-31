@@ -30,7 +30,6 @@ connection = pymysql.connect(host=dbHost,
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
     if request.method == 'POST':
         # Get the form data
         city = request.form['location']
@@ -108,7 +107,5 @@ def index():
 
 
 
-if __name__ == '__main__':
-    app.run()
 
 
